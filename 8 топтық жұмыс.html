@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Киберқауіпсіздік Тапсырмасы</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --neon-blue: #00d4ff;
+            --neon-purple: #9d50bb;
+            --neon-danger: #ff4b2b;
+            --neon-success: #00f2fe;
+            --text-main: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.1) 0%, rgba(157, 80, 187, 0.05) 90%);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 
+                        0 0 15px rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 10px rgba(0, 212, 255, 0.3);
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-weight: bold;
+            color: #636e72;
+            margin-bottom: 30px;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .item {
+            padding: 15px 20px;
+            background: #fff;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .item:hover {
+            transform: translateY(-3px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Таңдалған кездегі стильдер */
+        .item.danger {
+            background: #fff5f5;
+            border-color: var(--neon-danger);
+            color: #d63031;
+            box-shadow: 0 0 15px rgba(255, 75, 43, 0.3);
+        }
+
+        .item.safe {
+            background: #f0fff4;
+            border-color: #2ecc71;
+            color: #27ae60;
+            opacity: 0.7;
+        }
+
+        .status-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        #result-message {
+            margin-top: 30px;
+            text-align: center;
+            font-weight: bold;
+            min-height: 24px;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #b2bec3;
+        }
+         .back-btn {
+            position: fixed; top: 20px; left: 20px;
+            background-color: #6014ec; color: rgb(240, 239, 239);
+            border: none; padding: 10px 18px;
+            font-size: 14px; border-radius: 10px;
+            cursor: pointer; z-index: 150;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="history.back()">⬅ Артқа қайту</button>
+
+<div class="container">
+    <h1>Қате әрекетті тап</h1>
+    <p class="subtitle">Әр жағдайдан қауіпті әрекетті анықта (Үстінен бас):</p>
+
+    <div class="task-list">
+        <div class="item" onclick="checkAction(this, true, 'Мадина жаңа досымен интернетте сөйлесіп, оған фотосын жіберді.')">
+            <span class="status-icon">🌐</span>
+            <span>Мадина жаңа досымен интернетте сөйлесіп, оған фотосын жіберді.</span>
+        </div>
+
+        <div class="item" onclick="checkAction(this, false, 'Ержан күрделі пароль ойлап тапты.')">
+            <span class="status-icon">🔐</span>
+            <span>Ержан күрделі пароль ойлап тапты.</span>
+        </div>
+
+        <div class="item" onclick="checkAction(this, true, 'Алина белгісіз файлды жүктеп алды.')">
+            <span class="status-icon">📁</span>
+            <span>Алина белгісіз файлды жүктеп алды.</span>
+        </div>
+
+        <div class="item" onclick="checkAction(this, false, 'Тимур күмәнді хабарламаны өшіріп тастады.')">
+            <span class="status-icon">📩</span>
+            <span>Тимур күмәнді хабарламаны өшіріп тастады.</span>
+        </div>
+
+        <div class="item" onclick="checkAction(this, true, 'Арман белгісіз күмәнді сілтемені ашты.')">
+            <span class="status-icon">🔗</span>
+            <span>Арман белгісіз күмәнді сілтемені ашты.</span>
+        </div>
+    </div>
+
+    <div id="result-message"></div>
+
+    <div class="footer">
+        Информатика сабағы: Желідегі қауіпсіздік
+    </div>
+</div>
+
+<script>
+    function checkAction(element, isDanger, text) {
+        const messageBox = document.getElementById('result-message');
+        
+        if (isDanger) {
+            element.classList.add('danger');
+            messageBox.style.color = '#ff4b2b';
+            messageBox.innerHTML = '⚠ Бұл қауіпті әрекет!';
+        } else {
+            element.classList.add('safe');
+            messageBox.style.color = '#27ae60';
+            messageBox.innerHTML = '✅ Бұл дұрыс/қауіпсіз әрекет.';
+        }
+        
+        // Басқаннан кейін қайта басуды шектеу
+        element.style.pointerEvents = 'none';
+    }
+</script>
+
+</body>
+</html>
